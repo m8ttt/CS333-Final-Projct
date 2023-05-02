@@ -4,5 +4,8 @@ WORKDIR /app
 
 COPY . /app
 
-CMD [ "python", "PA2.py", "<", "PA2_test.sql"]
+COPY PA2_test.sql /app/PA2_test.sql
+
+CMD bash -c "cat PA2_test.sql | python PA2.py"
+
 
