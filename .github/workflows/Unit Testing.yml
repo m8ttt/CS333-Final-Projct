@@ -19,6 +19,6 @@ jobs:
         pip install coverage
     - name: Test with coverage
       run: |
-        coverage run testPA2.py -m unittest discover
+        coverage run -m testPA2
         coverage report
 
