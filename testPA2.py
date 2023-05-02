@@ -104,7 +104,7 @@ class TestBasicDataManipulation(unittest.TestCase):
         PA2.DELETE_TUPLE(table, equation)
         with open(table, 'r') as f:
             lines = f.readlines()
-        self.assertEqual(len(lines), 3) # header + 2 remaining tuples
+        self.assertEqual(len(lines), 3)
         self.assertNotIn('2 | PowerGizmo | 29.99\n', lines)
         
         # test deleting multiple tuples
@@ -112,7 +112,7 @@ class TestBasicDataManipulation(unittest.TestCase):
         PA2.DELETE_TUPLE(table, equation)
         with open(table, 'r') as f:
             lines = f.readlines()
-        self.assertEqual(len(lines), 2) # only the header should remain
+        self.assertEqual(len(lines), 2)
         os.remove(table)
         
     def test_UPDATE_TABLE(self):
@@ -183,7 +183,7 @@ class TestBasicDataManipulation(unittest.TestCase):
 
         # Test deleting non-existing table
         PA2.DROP_TABLE('non_existing_table.txt')
-        self.assertTrue(True)  # No error should be raised
+        self.assertTrue(True)
         
     def test_list_to_string(self):
         test_list = ["apple", "banana", "cherry"]
@@ -275,35 +275,29 @@ class TestBasicDataManipulation(unittest.TestCase):
             f.write("3 | SingleTouch | 149.99\n")
         
         arguments = "(4,NewGizmo,39.99)"
-        
-        # act
+    
         PA2.INSERT_TABLE(table_name, arguments)
         
-        # assert
         with open(table_name, "r") as f:
             lines = f.readlines()
-            self.assertEqual(len(lines), 6) # check that a new line was added
-            self.assertEqual(lines[-1].strip(), "4 | NewGizmo | 39.99") # check that the last line is the new record
-        
-        # clean up
+            self.assertEqual(len(lines), 6)
+            self.assertEqual(lines[-1].strip(), "4 | NewGizmo | 39.99") 
+    
         os.remove(table_name)
         
     def test_ALTER_TABLE(self):
-        # arrange
         table = "test_table7.txt"
         file_content = "pid int | name varchar(20) | price float\n1 | Gizmo | 19.99\n2 | PowerGizmo | 29.99\n3 | SingleTouch | 149.99"
         new_element = "inventory int"
         with open(table, "w") as file:
             file.write(file_content)
             
-        # act
         PA2.ALTER_TABLE(table, new_element)
         
-        # assert
         with open(table, "r") as file:
             updated_content = file.read()
             self.assertIn(new_element, updated_content)
-            self.assertEqual(updated_content.count("|"), 9)  # 3 rows * 3 columns + 2 separators (header + new column)
+            self.assertEqual(updated_content.count("|"), 9)
         
         os.remove(table)
 
@@ -313,7 +307,6 @@ class TestBasicDataManipulation(unittest.TestCase):
         file_content = "pid int | name varchar(20) | price float\n1 | Gizmo | 19.99\n2 | PowerGizmo | 29.99\n3 | SingleTouch | 149.99"
         with open(table, "w") as file:
             file.write(file_content)
-        # assert that ElementCheck does not raise ElementNotFoundError when the element exists
         element = "pid"
         try:
             PA2.ElementCheck(table, element)
@@ -326,7 +319,6 @@ class TestBasicDataManipulation(unittest.TestCase):
         file_content = "pid int | name varchar(20) | price float\n1 | Gizmo | 19.99\n2 | PowerGizmo | 29.99\n3 | SingleTouch | 149.99"
         with open(table, "w") as file:
             file.write(file_content)
-        # assert that ElementCheck raises ElementNotFoundError when the element does not exist
         element = "non_existing_element"
         with self.assertRaises(PA2.ElementNotFoundError):
             PA2.ElementCheck(self.table, element)
