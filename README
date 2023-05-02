@@ -1,0 +1,87 @@
+Running the code
+
+1. In order to run the code, use the command 'chmod 777 PA2.py' to gain all the permissions
+2. Then use the command './PA2.py' to run without any files or './PA2.py < PA2_test.sql' to run with a file
+3. On Windows or VSCode use type PA2_test.sql | python PA2.py to run with a file
+
+Functions
+
+CREATE_TABLE(new table, arguments)
+Checks to see if the file exists. If it doesn't exist, it will create a file in the directory specificed by
+the user. If it does exist, then an error message will be prompted.
+
+ALTER_TABLE(old_table, new_element)
+Checks to see if the file exists. If it does exist, then the user will be prompted to write and append the element 
+into the file. If it doesn't exist, then an error message will be prompted.
+
+SELECT_TABLE(current_table)
+Checks to see if the file exists. If it does, the file is opened and the contents of the file will be outputed.
+If it doesn't exist, then an error message will be prompted.
+
+DROP_TABLE(user_file)
+Checks to see if the file doesn't exist. If it does, the function will delete the file using the current directory
+it is in.
+
+CREATE_DATABASE(new_database)
+The global variable is called and the directory will be changed to the "home" directory and the new directory
+will be created if it already doesn't exist.
+
+DROP_DATABASE(user_directory)
+Deletes the database/directory that the user chose to delete.
+
+USE(user_directory)
+Changes the database to what the user specifices in the command.
+
+ListToString(list_element) 
+This function takes part of the list of the user's input and turns it into a string.
+
+main()
+The main function takes in the user's input and will continue doing so unitl the '.exit' command.
+
+ListToEquation(equation)
+This function takes part of the list of the user's input and a if statement is used to determine if the equation is numerical or string based.
+If it is numerical based then a sample function can be run and if it is string based then each case is tested with an if statement.
+
+FindIndex(table, element)
+This function opens the file given by the user and breaks the header up into a list then uses the index function to find the element requested
+by the user.
+
+CLEAN_FILE(table)
+Removes any white space that might be causing an empty line in between tuples.
+
+OBTAIN_TUPLES(table)
+Reads the table and returns the lines that are tuple.
+
+OBTAIN_HEADER(table)
+Reads the table and only returns the first line.
+
+DELETE_TUPLE(table, equation)
+If the tuple passes the test then it is not written back into the table and a counter is incremented.
+
+UPDATE_TABLE(table, then_EQ, if_EQ)
+If the tuple passes the test then a counter is incremented and a tuple is modified to the right half of then_EQ. After the check the tuple is written
+back into the table. If a tuple fails the test then it skips to the part where it is written into the table. 
+
+INSERT_TABLE(table, arguments)
+Check the file's existence, then opens the file in append mode where each character in the previously parenthesized string is copied to the file.
+
+WHERE_TEST(element_where_index, tuples, EQ)
+This function splits up the tuples into lists then it appends the right half of the equation to the tuple.
+
+SPECIFICS(tuple, output_elements, table)
+This function uses a tuple, the output element of the tuple requested by the user, and the table needed to obtain the information.
+
+LowerAndConsiderQuotes(sentence)
+This function iterates through each character in a string and counts the single quotes to ensure that characters within single quotes remain
+case sensitive while every other character is lower cased.
+
+FixEQFormat(user_input)
+This function checks the user's equation by determining certain indexes, it checks both the set and where equations if they exist and rewrite the
+initial command so that they match the proper format.
+
+StringEquationToList(Equation_String)
+This function runs through the equation of the string and ensures the equation is in the proper format by running a series of statements within
+a loop that will add spaces around the operators then turning a string to a list.
+
+ElementCheck(table, element)
+This function checks to see if a certain element exists in the header and if not an error is prompted.
