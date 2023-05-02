@@ -48,7 +48,6 @@ class TestBasicDataManipulation(unittest.TestCase):
             f.writelines(self.rows)
     
     def tearDown(self):
-        # delete the sample table/file after testing
         os.remove(self.table)
     
     def test_CLEAN_FILE(self):
@@ -144,13 +143,13 @@ class TestBasicDataManipulation(unittest.TestCase):
         os.remove(table)
         
     def test_matching_value(self):
-        element_where_index = 1 # index of 'name' column
+        element_where_index = 1
         tuples = '1 | Gizmo | 19.99\n'
         EQ = '= Gizmo'
         self.assertTrue(PA2.WHERE_TEST(element_where_index, tuples, EQ))
         
     def test_non_matching_value(self):
-        element_where_index = 2 # index of 'price' column
+        element_where_index = 2
         tuples = '2 | PowerGizmo | 29.99\n'
         EQ = '> 50'
         self.assertFalse(PA2.WHERE_TEST(element_where_index, tuples, EQ))
@@ -251,18 +250,15 @@ class TestBasicDataManipulation(unittest.TestCase):
             PA2.FixEQFormat(input5)
         
     def test_CREATE_DATABASE(self):
-        # test creating a new database
         new_database = 'test_database'
         PA2.CREATE_DATABASE(new_database)
         self.assertTrue(os.path.isdir(new_database))
         os.rmdir(new_database)
         
     def test_DROP_DATABASE(self):
-        # Create a test database
         test_database = 'test_database'
         os.mkdir(test_database)
 
-        # Test deleting the test database
         PA2.DROP_DATABASE(test_database)
         self.assertFalse(os.path.exists(test_database))
     
@@ -301,7 +297,6 @@ class TestBasicDataManipulation(unittest.TestCase):
         
         os.remove(table)
 
-        
     def test_ElementCheck(self):
         table = "test_table8.txt"
         file_content = "pid int | name varchar(20) | price float\n1 | Gizmo | 19.99\n2 | PowerGizmo | 29.99\n3 | SingleTouch | 149.99"
@@ -330,7 +325,6 @@ class TestBasicDataManipulation(unittest.TestCase):
         self.assertNotEqual(os.getcwd(), os.path.abspath(test_directory))
         
     def test_USE_non_existing_database(self):
-        # capture the output of the USE() function
         captured_output = io.StringIO()
         expected_output = "!Failed because database non_existing_db does not exist.\n"
         with unittest.mock.patch('sys.stdout', new=captured_output):
@@ -366,11 +360,6 @@ class TestBasicDataManipulation(unittest.TestCase):
         except FileNotFoundError:
             self.fail("FileNotFoundError raised unexpectedly.")
         os.remove(new_table)
-            
-
         
-
-        
-
 if __name__ == '__main__':
     unittest.main()
