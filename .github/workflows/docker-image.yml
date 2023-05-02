@@ -21,6 +21,11 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+        
+      - name: Build and run Docker container
+        run: |
+          docker build -t my-pa2-app .
+          docker run my-pa2-app bash -c "cat PA2_test.sql | python PA2.py"
       -
         name: Build and push
         uses: docker/build-push-action@v4
