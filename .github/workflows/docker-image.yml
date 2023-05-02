@@ -14,4 +14,4 @@ jobs:
     - name: Build and run Docker container
       run: |
         docker build -t my-pa2-app .
-        docker run -it my-pa2-app bash -c "cat PA2_test.sql | python PA2.py"
+        docker run my-pa2-app bash -c "cat PA2_test.sql | python PA2.py"
