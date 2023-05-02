@@ -324,5 +324,53 @@ class TestBasicDataManipulation(unittest.TestCase):
             PA2.ElementCheck(self.table, element)
         os.remove(table)
 
+    def test_USE(self):
+        test_directory = 'test_db'
+        PA2.USE(test_directory)
+        self.assertNotEqual(os.getcwd(), os.path.abspath(test_directory))
+        
+    def test_USE_non_existing_database(self):
+        # capture the output of the USE() function
+        captured_output = io.StringIO()
+        expected_output = "!Failed because database non_existing_db does not exist.\n"
+        with unittest.mock.patch('sys.stdout', new=captured_output):
+            PA2.USE('non_existing_db')
+            self.assertEqual(captured_output.getvalue(), expected_output)
+            
+    def test_file_not_found_ALTER_TABLE(self):
+        table = "non_existing_table.txt"
+        new_element = "new_element"
+        try:
+            PA2.ALTER_TABLE(table, new_element)
+        except FileNotFoundError:
+            self.fail("FileNotFoundError raised unexpectedly.")
+            
+    def test_file_found_ALTER_TABLE(self):
+        table = "existing_table.txt"
+        new_element = "new_element"
+        with open(table, "w") as file:
+            file.write("existing_element")
+        PA2.ALTER_TABLE(table, new_element)
+        with open(table, "r") as file:
+            content = file.read()
+        self.assertIn(new_element, content)
+        os.remove(table)
+        
+    def test_file_exists_CREATE_TABLE(self):
+        new_table = "existing_table.txt"
+        arguments = "(column1, column2, column3)"
+        with open(new_table, "w") as file:
+            file.write("existing_data")
+        try:
+            PA2.CREATE_TABLE(new_table, arguments)
+        except FileNotFoundError:
+            self.fail("FileNotFoundError raised unexpectedly.")
+        os.remove(new_table)
+            
+
+        
+
+        
+
 if __name__ == '__main__':
     unittest.main()
