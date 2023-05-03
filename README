@@ -1,3 +1,8 @@
+In terms of replicating the automation infrastructure, the build and test infrastructure can be 
+replicated by looking at the Unit Testing.yml file under the .github/workflows folder. Additionally 
+the build and deploy infrastructure can be replicated by looking at the docker-image.yml file 
+which is also under the .github/workflows folder.
+
 Running the code
 
 1. In order to run the code, use the command 'chmod 777 PA2.py' to gain all the permissions
